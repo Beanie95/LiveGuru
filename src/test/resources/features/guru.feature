@@ -1,35 +1,16 @@
-Feature: Automation training
+Feature: Live Guru Frontend
 
   Background:
-    Given I access Anh tester website
-    And I click on sidebar menu Input Forms
+    Given Open LiveGuru99 site
 
-  Scenario: Verify result
-    And Select simple form demo
-    And Close popup
-    And Input generate random two letters two numbers and current date into message field
-    And Click show message
-    Then Verify message display correct mapping with input data
-    Then Enter number "11" into enter a field
-    And Enter number "22" into enter b field
-    And Click get total
-    Then Verify total a+b is correct
 
-#<<<<<<< Updated upstream
-  @calculate
-  Scenario Outline: Calculate
-    And Select simple form demo
-    And Close popup
-    And Input generate random two letters two numbers and current date into message field
-    And Click show message
-    Then Verify message display correct mapping with input data
-    Then Enter number a "<firstNumber>" and Enter number b "<secondNumber>"
-    And Click get total
-    Then Verify total a+b is correct
-    Examples:
-      | firstNumber | secondNumber |
-      | 3           | 5            |
-      | 3           | 3            |
+  Scenario: Register success to system
+    When Open LiveGuru99 site
+    And Click on ACCOUNT menu
+    And Choose Register link
+    And Input firstname: "Guru",lastname: "demo",email: "livedemo@gmail.com",password: "111222",re-password: "111222" to form
+    Then Click REGISTER button
+
 
   Scenario: Try While loop
     And Select Input form submit
