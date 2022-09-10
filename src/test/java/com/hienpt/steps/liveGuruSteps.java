@@ -1,9 +1,11 @@
 package com.hienpt.steps;
 
-import com.dqhieu.page.commonElements;
+import com.hienpt.page.commonElements;
+import com.hienpt.page.commonElements;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import net.serenitybdd.core.environment.EnvironmentSpecificConfiguration;
 import net.thucydides.core.environment.SystemEnvironmentVariables;
 import net.thucydides.core.pages.PageObject;
@@ -20,107 +22,145 @@ public class liveGuruSteps extends PageObject {
 
     commonElements common;
 
-    @Given("I access Anh tester website")
-    public void iAccessAnhTesterWebsite() {
+//
+//    @And("I click on sidebar menu Input Forms")
+//    public void iClickOnSidebarMenuInputForms() {
+//        common.clickInputForm();
+//    }
+//
+//    @And("Select simple form demo")
+//    public void selectSimpleFormDemo() throws Throwable {
+//        common.clickSimpleForm();
+//
+//    }
+//    @And("Close popup")
+//    public void closePopup() {
+//        common.closeAdsPopup();
+//
+//    }
+//    @And("Input generate random two letters two numbers and current date into message field")
+//    public void inputGenerateRandomTwoLettersTwoNumbersAndCurrentDateIntoMessageField() throws Throwable {
+//        common.enterYourMessage();
+//
+//    }
+//
+//    @And("Click show message")
+//    public void clickShowMessage() {
+//        common.showMessage();
+//    }
+//
+//    @Then("Verify message display correct mapping with input data")
+//    public void verifyMessageDisplayCorrectMappingWithInputData() {
+//        common.verifyMessage();
+//
+//    }
+//
+//    @Then("Enter number {string} into enter a field")
+//    public void enterNumberAInEnterAField(String numberA) {
+//        this.a = numberA;
+//        common.enterFirstValue(numberA);
+//    }
+//
+//    @And("Enter number {string} into enter b field")
+//    public void enterNumberBInEnterBField(String numberB) {
+//        this.b = numberB;
+//        common.enterSecondValue(numberB);
+//    }
+//
+//    @And("Click get total")
+//    public void clickGetTotal() {
+//        common.getTotal();
+//    }
+//
+//    @Then("Verify total a+b is correct")
+//    public void verifyTotalABIsCorrect() {
+//        Assert.assertEquals(Float.parseFloat(common.getTotalValue()), Float.parseFloat(a) + Float.parseFloat(b), 0.0);
+//    }
+//
+//
+//
+//    @Then("Enter number a {string} and Enter number b {string}")
+//    public void enterNumberAAndEnterNumberB(String numA, String numB) {
+//        this.a = numA;
+//        this.b = numB;
+//        common.enterFirstValue(numA);
+//        common.enterSecondValue(numB);
+//    }
+//
+//    @And("Select Input form submit")
+//    public void selectInputFormSubmit() {
+//        common.clickInputFormSubmit();
+//    }
+//
+//
+//    @Then("Enter email {string}")
+//    public void enterEmail(String email) throws Throwable {
+//        common.enterEmail(email);
+//    }
+//
+//    @Then("Verify email no longer error")
+//    public void verifyEmailNoLongerError() {
+//        common.verifyEmailError();
+//    }
+//
+//    @And("Enter phone number {string}")
+//    public void enterPhoneNumber(String phoneNumb) throws Throwable {
+//        common.enterPhone(phoneNumb);
+//    }
+//
+//    @Then("Enter {string} into Project Description")
+//    public void enterIntoProjectDescription(String letter) {
+//        common.enterProjectDescription(letter);
+//    }
+//
+//    @Then("Verify Project Description no longer error")
+//    public void verifyProjectDescriptionNoLongerError() throws Throwable {
+//        common.verifyProjectDescription();
+//    }
+//
+
+    @Given("Open LiveGuru99 site")
+    public void openLiveGuruSite() {
         openUrl(URL);
-        //common.closeAdsPopup();
     }
 
-    @And("I click on sidebar menu Input Forms")
-    public void iClickOnSidebarMenuInputForms() {
-        common.clickInputForm();
+    @When("Click on ACCOUNT menu")
+    public void clickOnACCOUNTMenu() {
+        common.clickAccountMenu();
     }
 
-    @And("Select simple form demo")
-    public void selectSimpleFormDemo() throws Throwable {
-        common.clickSimpleForm();
-
-    }
-    @And("Close popup")
-    public void closePopup() {
-        common.closeAdsPopup();
-
-    }
-    @And("Input generate random two letters two numbers and current date into message field")
-    public void inputGenerateRandomTwoLettersTwoNumbersAndCurrentDateIntoMessageField() throws Throwable {
-        common.enterYourMessage();
-
+    @And("Choose Register link")
+    public void chooseRegisterLink() {
+        common.clickRegister();
     }
 
-    @And("Click show message")
-    public void clickShowMessage() {
-        common.showMessage();
+    @And("Input {string},{string},{string},{string},{string} to form")
+    public void inputToForm(String firstname, String lastname, String email, String password, String repassword) {
+        common.inputInformation(firstname, lastname, email, password, repassword);
     }
 
-    @Then("Verify message display correct mapping with input data")
-    public void verifyMessageDisplayCorrectMappingWithInputData() {
+    @Then("Click REGISTER button")
+    public void clickREGISTERButton() {
+        common.clickRegisterButton();
+    }
+
+    @And("Verify text displayed after registerd")
+    public void verifyTextDisplayedAfterRegisterd() {
         common.verifyMessage();
-
     }
 
-    @Then("Enter number {string} into enter a field")
-    public void enterNumberAInEnterAField(String numberA) {
-        this.a = numberA;
-        common.enterFirstValue(numberA);
+    @And("Open my account page {string} and {string}")
+    public void openMyAccountPageAnd(String email, String password) {
+        common.clickMyAccount(email, password);
     }
 
-    @And("Enter number {string} into enter b field")
-    public void enterNumberBInEnterBField(String numberB) {
-        this.b = numberB;
-        common.enterSecondValue(numberB);
+    @And("Open ACCOUNT INFORMATION page")
+    public void openACCOUNTINFORMATIONPage() {
+        common.clickAccountInfor();
     }
 
-    @And("Click get total")
-    public void clickGetTotal() {
-        common.getTotal();
+    @Then("Verify data in firstname, lastname and email are correctly")
+    public void verifyDataInFirstnameLastnameAndEmailAreCorrectly() {
+        common.verifyAccountInfor();
     }
-
-    @Then("Verify total a+b is correct")
-    public void verifyTotalABIsCorrect() {
-        Assert.assertEquals(Float.parseFloat(common.getTotalValue()), Float.parseFloat(a) + Float.parseFloat(b), 0.0);
-    }
-
-
-
-    @Then("Enter number a {string} and Enter number b {string}")
-    public void enterNumberAAndEnterNumberB(String numA, String numB) {
-        this.a = numA;
-        this.b = numB;
-        common.enterFirstValue(numA);
-        common.enterSecondValue(numB);
-    }
-
-    @And("Select Input form submit")
-    public void selectInputFormSubmit() {
-        common.clickInputFormSubmit();
-    }
-
-
-    @Then("Enter email {string}")
-    public void enterEmail(String email) throws Throwable {
-        common.enterEmail(email);
-    }
-
-    @Then("Verify email no longer error")
-    public void verifyEmailNoLongerError() {
-        common.verifyEmailError();
-    }
-
-    @And("Enter phone number {string}")
-    public void enterPhoneNumber(String phoneNumb) throws Throwable {
-        common.enterPhone(phoneNumb);
-    }
-
-    @Then("Enter {string} into Project Description")
-    public void enterIntoProjectDescription(String letter) {
-        common.enterProjectDescription(letter);
-    }
-
-    @Then("Verify Project Description no longer error")
-    public void verifyProjectDescriptionNoLongerError() throws Throwable {
-        common.verifyProjectDescription();
-    }
-
-
-
 }

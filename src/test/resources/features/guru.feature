@@ -3,22 +3,22 @@ Feature: Live Guru Frontend
   Background:
     Given Open LiveGuru99 site
 
-
-  Scenario: Register success to system
-    When Open LiveGuru99 site
-    And Click on ACCOUNT menu
+  Scenario Outline: Register success to system
+    When Click on ACCOUNT menu
     And Choose Register link
-    And Input firstname: "Guru",lastname: "demo",email: "livedemo@gmail.com",password: "111222",re-password: "111222" to form
+    And Input "<firstname>","<lastname>","<email>","<password>","<repassword>" to form
     Then Click REGISTER button
+    And Verify text displayed after registerd
+#  Case02: Verify user information is correct after registered successfully
+    And Open my account page "<email>" and "<password>"
+    And Open ACCOUNT INFORMATION page
+    Then Verify data in firstname, lastname and email are correctly
+
+    Examples:
+      | firstname | lastname | email                | password | repassword |
+      | Guru12    | demo12   | livedemo12@gmail.com | 111222   | 111222     |
 
 
-  Scenario: Try While loop
-    And Select Input form submit
-    Then Enter email "aa"
-    Then Verify email no longer error
-    And Enter phone number "03"
-    Then Enter "a" into Project Description
-    Then Verify Project Description no longer error
 
 
 
