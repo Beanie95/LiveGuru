@@ -1,7 +1,6 @@
 package com.hienpt.steps;
 
 import com.hienpt.page.commonElements;
-import com.hienpt.page.commonElements;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -154,6 +153,11 @@ public class liveGuruSteps extends PageObject {
         common.clickMyAccount(email, password);
     }
 
+    @Then("Verify dashboard header text displayed")
+    public void verifyDashboardHeaderTextDisplayed() {
+        common.verifyHeader();
+    }
+
     @And("Open ACCOUNT INFORMATION page")
     public void openACCOUNTINFORMATIONPage() {
         common.clickAccountInfor();
@@ -163,4 +167,52 @@ public class liveGuruSteps extends PageObject {
     public void verifyDataInFirstnameLastnameAndEmailAreCorrectly() {
         common.verifyAccountInfor();
     }
+
+    @When("Click on Mobile menu")
+    public void clickOnMobileMenu() {
+        common.clickMobileMenu();
+    }
+
+    @And("Get cost of Sony Xperia mobile in list page")
+    public void getCostOfSonyXperiaMobileInListPage() {
+        common.verifyPriceListPage();
+    }
+
+    @And("Click on Sony Xperia detail")
+    public void clickOnSonyXperiaDetail() {
+        common.clickDetailProduct();
+    }
+
+    @And("Get cost Sony Xperia mobile from detail page")
+    public void getCostSonyXperiaMobileFromDetailPage() {
+        common.verifyPriceDetailPage();
+    }
+
+
+    @Then("Compare value in list page and detail page")
+    public void compareValueInListPageAndDetailPage() {
+        common.comparePrice();
+    }
+    
+    @When("Click on Mobile menu and add Sony Xperia to cart")
+    public void clickOnMobileMenuAndAddSonyXperiaToCart() {
+        common.clickAddtoCart();
+    }
+
+    @Then("Verify product added to cart")
+    public void verifyProductAddedToCart() {
+        common.verifyProductAdded();
+    }
+
+    @And("Enter Coupon code {string}")
+    public void enterCouponCode(String coupon) throws Throwable {
+        common.enterCouponCode(coupon);
+    }
+
+    @Then("Verify the discount generated")
+    public void verifyTheDiscountGenerated() {
+        common.verifyDiscount();
+    }
+
+
 }

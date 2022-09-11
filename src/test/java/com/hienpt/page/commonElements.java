@@ -2,16 +2,10 @@ package com.hienpt.page;
 
 import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
-import org.apache.commons.lang3.RandomStringUtils;
+import org.junit.Assert;
 import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-import java.util.Random;
 
 public class commonElements extends PageObject {
   final static Logger logger = LoggerFactory.getLogger(commonElements.class);
@@ -191,7 +185,7 @@ public class commonElements extends PageObject {
 //    logger.info("Total: " + sum);
 //    return sum;
 //  }
-  @FindBy(xpath = "//a[@class=\"skip-link skip-account\"]/..//span[text()='Account']")
+  @FindBy(xpath = "//a[@class='skip-link skip-account']/..//span[text()='Account']")
   public WebElementFacade accountMenu;
 
   public void clickAccountMenu(){
@@ -227,7 +221,7 @@ public class commonElements extends PageObject {
     rePasswordField.waitUntilVisible().sendKeys(rePassword);
   }
 
-  @FindBy(xpath = "//button[@type=\"submit\"]/..//span[text()='Register']")
+  @FindBy(xpath = "//button[@type='submit']/..//span[text()='Register']")
   public WebElementFacade registerButton;
 
   public void clickRegisterButton() {
@@ -271,6 +265,18 @@ public class commonElements extends PageObject {
       loginButton.waitUntilVisible().click();
     }
   }
+  @FindBy(xpath = "//div[@class='page-title']")
+  public WebElementFacade headerTitle;
+  @FindBy(xpath = "//p[@class='hello']")
+  public WebElementFacade welcomeMessage;
+
+  public void verifyHeader(){
+    headerTitle.waitUntilVisible().isDisplayed();
+    System.out.println(headerTitle.getText());
+    welcomeMessage.waitUntilVisible().isDisplayed();
+    System.out.println(welcomeMessage.getText());
+    logger.info("welcome message is: " + welcomeMessage.getText());
+  }
 
   @FindBy(xpath = "//a[text()='Account Information']")
   public WebElementFacade accountInforLink;
@@ -296,5 +302,98 @@ public class commonElements extends PageObject {
     emailInfor.waitUntilVisible().isDisplayed();
     System.out.println(emailInfor.getValue());
     logger.info("infor3: " + emailInfor.getValue());
+  }
+
+  @FindBy(xpath = "//a[text()='Mobile']")
+  public WebElementFacade mobileMenu;
+
+  public void clickMobileMenu(){
+    mobileMenu.waitUntilVisible().click();
+  }
+
+  @FindBy(xpath = "//a[@title='Xperia']/..//span[@class='price']")
+  public static WebElementFacade priceListPage;
+
+  String p1;
+  String p2;
+  public void verifyPriceListPage(){
+    priceListPage.waitUntilVisible().isDisplayed();
+    p1 = priceListPage.getText();
+    System.out.println(p1);
+    logger.info("price in list page is: "+priceListPage.getText());
+
+  }
+  @FindBy(id = "product-collection-image-1")
+  public static WebElementFacade detailProduct;
+
+  public void clickDetailProduct(){
+    detailProduct.waitUntilVisible().click();
+  }
+  @FindBy(xpath = "//span[text()='Sony Xperia']/../..//span[text()='$100.00']")
+  public static WebElementFacade priceDetailPage;
+
+  public void verifyPriceDetailPage(){
+    priceDetailPage.waitUntilVisible().isDisplayed();
+    p2 = priceDetailPage.getText();
+    System.out.println(p2);
+    logger.info("price in detail page is: "+ priceDetailPage.getText());
+
+  }
+  public void comparePrice(){
+    if (p1.equals(p2)){
+      System.out.println("Two prices equal");
+    }else {
+      System.out.println("Two prices not equal");
+    }
+  }
+
+  @FindBy(xpath = "//nav[@id='nav']//a[text()='Mobile']")
+  public WebElementFacade mobileLink;
+
+  @FindBy(xpath = "//a[text()='Sony Xperia']/../..//span[text()='Add to Cart']")
+  public WebElementFacade addToCart;
+
+  public void clickAddtoCart(){
+    mobileLink.waitUntilVisible().click();
+    addToCart.waitUntilVisible().click();
+  }
+
+  @FindBy(xpath = "//span[contains(text(),'Xperia was added')]")
+  public WebElementFacade addedMessage;
+  @FindBy(xpath = "//input[@name='cart[186431][qty]']")
+  public WebElementFacade quantity;
+  @FindBy(xpath = "//span[text()='Update']")
+  public WebElementFacade updateButton;
+  public void verifyProductAdded(){
+    addedMessage.waitUntilVisible().isDisplayed();
+    System.out.println(addedMessage.getText());
+    quantity.waitUntilVisible().clear();
+    quantity.waitUntilVisible().sendKeys("1");
+    updateButton.waitUntilVisible().click();
+    couponCode.waitUntilVisible().clear();
+  }
+  @FindBy(id = "coupon_code")
+  public WebElementFacade couponCode;
+  @FindBy(xpath = "//span[text()='Apply']")
+  public WebElementFacade applyButton;
+
+  public void enterCouponCode(String coupon) throws Throwable {
+    couponCode.waitUntilVisible().sendKeys(coupon);
+    applyButton.waitUntilVisible().click();
+    Thread.sleep(3000);
+  }
+  @FindBy(xpath = "//td[contains(text(),'Discount (GURU50)')]/..//span[@class='price']")
+  public WebElementFacade discountField;
+
+  @FindBy(xpath = "//strong[contains(text(),'Grand Total')]/../..//span[@class='price']")
+  public WebElementFacade grandTotal;
+
+  public void verifyDiscount(){
+    String expectedDiscount = "-$5.00";
+    String expectedGrandTotal = "$95.00";
+    String actualDiscount = discountField.getText();
+    String actualGrandTotal = grandTotal.getText();
+    Assert.assertEquals("correct discount",expectedDiscount,actualDiscount);
+    Assert.assertEquals("correct Grantotal",expectedGrandTotal,actualGrandTotal);
   }
 }
