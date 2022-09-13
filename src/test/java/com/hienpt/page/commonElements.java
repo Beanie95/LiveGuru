@@ -1,8 +1,10 @@
 package com.hienpt.page;
 
+import junit.framework.AssertionFailedError;
 import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.junit.Assert;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -349,9 +351,16 @@ public class commonElements extends PageObject {
 
   @FindBy(xpath = "//nav[@id='nav']//a[text()='Mobile']")
   public WebElementFacade mobileLink;
-
-  @FindBy(xpath = "//a[text()='Sony Xperia']/../..//span[text()='Add to Cart']")
+  @FindBy(xpath = "//a[@title='Sony Xperia']/../..//span[text()='Add to Cart']")
   public WebElementFacade addToCart;
+  @FindBy(xpath = "//span[text()='Cart']")
+  public WebElementFacade cart;
+
+  @FindBy(xpath = "//input[@data-cart-item-id='MOB001']")
+  public WebElementFacade qtyCart;
+
+  @FindBy(xpath = "//a[@title='Remove This Item']")
+  public WebElementFacade removeItem;
 
   public void clickAddtoCart(){
     mobileLink.waitUntilVisible().click();
@@ -360,24 +369,28 @@ public class commonElements extends PageObject {
 
   @FindBy(xpath = "//span[contains(text(),'Xperia was added')]")
   public WebElementFacade addedMessage;
-  @FindBy(xpath = "//input[@name='cart[186431][qty]']")
+  @FindBy(xpath = "//input[@title='Qty']")
   public WebElementFacade quantity;
   @FindBy(xpath = "//span[text()='Update']")
   public WebElementFacade updateButton;
-  public void verifyProductAdded(){
+
+  public void verifyProductAdded() {
     addedMessage.waitUntilVisible().isDisplayed();
     System.out.println(addedMessage.getText());
-    quantity.waitUntilVisible().clear();
-    quantity.waitUntilVisible().sendKeys("1");
-    updateButton.waitUntilVisible().click();
-    couponCode.waitUntilVisible().clear();
+
   }
   @FindBy(id = "coupon_code")
   public WebElementFacade couponCode;
   @FindBy(xpath = "//span[text()='Apply']")
   public WebElementFacade applyButton;
-
+  int qty;
   public void enterCouponCode(String coupon) throws Throwable {
+    qty = Integer.parseInt(quantity.getAttribute("value"));
+    if(qty != 1){
+      quantity.waitUntilVisible().clear();
+      quantity.waitUntilVisible().sendKeys("1");
+      couponCode.waitUntilVisible().clear();
+    }
     couponCode.waitUntilVisible().sendKeys(coupon);
     applyButton.waitUntilVisible().click();
     Thread.sleep(3000);
@@ -388,12 +401,50 @@ public class commonElements extends PageObject {
   @FindBy(xpath = "//strong[contains(text(),'Grand Total')]/../..//span[@class='price']")
   public WebElementFacade grandTotal;
 
-  public void verifyDiscount(){
-    String expectedDiscount = "-$5.00";
-    String expectedGrandTotal = "$95.00";
-    String actualDiscount = discountField.getText();
-    String actualGrandTotal = grandTotal.getText();
-    Assert.assertEquals("correct discount",expectedDiscount,actualDiscount);
-    Assert.assertEquals("correct Grantotal",expectedGrandTotal,actualGrandTotal);
+  public void verifyDiscount() {
+
+      String expectedDiscount = "-$5.00";
+      String expectedGrandTotal = "$95.00";
+      String actualDiscount = discountField.getText();
+      String actualGrandTotal = grandTotal.getText();
+      Assert.assertEquals("correct discount",expectedDiscount,actualDiscount);
+      Assert.assertEquals("correct Grantotal",expectedGrandTotal,actualGrandTotal);
+  }
+  public void changeQuantity(String qty) throws Throwable {
+      mobileLink.waitUntilVisible().click();
+      addToCart.waitUntilVisible().click();
+      quantity.waitUntilVisible().clear();
+      quantity.waitUntilVisible().sendKeys(qty);
+      updateButton.waitUntilVisible().click();
+      Thread.sleep(3000);
+  }
+  @FindBy(xpath = "//span[contains(text(),'requested quantity')]")
+  public WebElementFacade messageError1;
+  @FindBy(xpath = "//p[contains(text(),'maximum quantity')]")
+  public WebElementFacade messageError2;
+  public void verifyError(){
+    messageError1.waitUntilVisible().isDisplayed();
+    System.out.println(messageError1.getText());
+    messageError2.waitUntilVisible().isDisplayed();
+    System.out.println(messageError2.getText());
+  }
+  @FindBy(xpath = "//span[contains(text(),'Empty Cart')]")
+  public WebElementFacade emptyLink;
+
+  public void clickEmptyLink(){
+    emptyLink.waitUntilVisible().click();
+  }
+
+  @FindBy(xpath = "//h1[contains(text(),'Shopping Cart is Empty')]")
+  public WebElementFacade cartEmptyMeassage;
+
+  @FindBy(xpath = "//div[@class='cart-empty']//p[contains(text(),'You have no items')]")
+  public WebElementFacade noItems;
+
+  public void verifyCartEmpty(){
+    cartEmptyMeassage.waitUntilVisible().isDisplayed();
+    System.out.println(cartEmptyMeassage.getText());
+    noItems.waitUntilVisible().isDisplayed();
+    System.out.println(noItems.getText());
   }
 }

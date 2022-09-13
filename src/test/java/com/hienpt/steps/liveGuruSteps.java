@@ -193,14 +193,14 @@ public class liveGuruSteps extends PageObject {
     public void compareValueInListPageAndDetailPage() {
         common.comparePrice();
     }
-    
-    @When("Click on Mobile menu and add Sony Xperia to cart")
-    public void clickOnMobileMenuAndAddSonyXperiaToCart() {
+
+    @When("Add Sony Xperia to cart")
+    public void addSonyXperiaToCart() {
         common.clickAddtoCart();
     }
 
     @Then("Verify product added to cart")
-    public void verifyProductAddedToCart() {
+    public void verifyProductAddedToCart() throws Throwable {
         common.verifyProductAdded();
     }
 
@@ -210,9 +210,27 @@ public class liveGuruSteps extends PageObject {
     }
 
     @Then("Verify the discount generated")
-    public void verifyTheDiscountGenerated() {
+    public void verifyTheDiscountGenerated() throws Throwable {
         common.verifyDiscount();
     }
 
+    @When("Change Qty value to {string} and click update button")
+    public void changeQtyValueToAndClickUpdateButton(String qty) throws Throwable {
+        common.changeQuantity(qty);
+    }
 
+    @Then("Verify the error message")
+    public void verifyTheErrorMessage() {
+        common.verifyError();
+    }
+
+    @And("Click on Empty Cart link")
+    public void clickOnEmptyCartLink() {
+        common.clickEmptyLink();
+    }
+
+    @Then("Verify cart is empty")
+    public void verifyCartIsEmpty() {
+        common.verifyCartEmpty();
+    }
 }
