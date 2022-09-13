@@ -38,12 +38,11 @@ Feature: Live Guru Frontend
     Then Verify cart is empty
 
   Scenario: Verify that you are able to compare two products
-  2. Click on ‘MOBILE’ menu
-  3. In mobile products list , click on ‘Add To Compare’ for 2 mobiles (Sony Xperia & Iphone)
-  4. Click on ‘COMPARE’ button (A popup window opens)
-  5. Verify the pop-up window and check that the products are reflected in it
-  Heading "COMPARE PRODUCTS" with selected products in it.
-  6. Close the Popup Windows
+    When Click on MOBILE menu
+    And In mobile products list , click on Add To Compare for 2 mobiles which are Sony Xperia & Iphone
+    And Click on COMPARE button and A popup window opens
+    Then Verify the pop-up window and check that the products are reflected in it and Heading "COMPARE PRODUCTS" with selected products in it.
+    And Close the Popup Windows
 
 
 
